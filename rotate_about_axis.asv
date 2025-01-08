@@ -1,0 +1,47 @@
+%{
+Task: Generate a transformation matrix to rotate a point about a principal coordinate axis (x, y, or z
+axis) by a given rotation angle.
+• Input: axis (for ‘x’, ‘y’, or ‘z’), rotation angle
+• Output: Homogeneous rotation matrix (4x4)
+• Testing: Sketch up on paper 3 ground truth cases, one for each axis, by constructing a test
+transformation matric and applying it on a test point. Examine if your program produces the expected
+output.
+• Hints: Look up the relevant lecture slides. In constructing a ground truth case, think of some “easy
+angles” (45 deg or 90 deg) which should yield a rotation matrix with familiar numbers. Think of “easy”
+test points that will be transformed to familiar locations
+%}
+
+function[] = test_for_q8
+   disp("Test for 75 degrees");
+   homogeneous_transformation_matrix1 = rotation_about_coord_axis('x',75);
+   disp(homogeneous_transformation_matrix1);
+
+   disp("Test with 90 degrees");
+   homogeneous_transformation_matrix2 = rotation_about_coord_axis('y',90);
+   disp(homogeneous_transformation_matrix2);
+
+   disp("Test with -45 degrees")
+   homogeneous_transformation_matrix3 = rotation_about_coord_axis('z',-45);
+   disp(homogeneous_transformation_matrix3);
+
+end
+
+function homogeneous_transformation_matrix = rotation_about_coord_axis(axis, angle)
+    homogeneous_transformation_matrix = eye(4);
+    if axis == 'x'
+        homogeneous_transformation_matrix = [1, 0, 0, 0; 
+             0, cos(angle), -sin(angle), 0;
+             0, sin(angle), cos(angle), 0;
+             0, 0, 0, 1];
+    elseif axis == 'y'
+        homogeneous_transformation_matrix = [cos(angle), 0, sin(angle), 0;
+             0, 1, 0, 0;
+             -sin(angle), 0, cos(angle), 0;
+             0, 0, 0, 1];
+    elseif 'z'
+        homogeneous_transformation_matrix = [cos(angle), -sin(angle), 0, 0;
+             sin(angle), cos(angle), 0, 0;
+             0, 0, 1, 0;
+             0, 0, 0, 1];
+    end
+end
